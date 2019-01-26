@@ -1,0 +1,1 @@
+include 'auth-provider', 'client', 'resource-server'
