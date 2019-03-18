@@ -2,16 +2,14 @@ package com.jgreubel.oauthclient;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableOAuth2Client;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
 
 @SpringBootApplication
-//@EnableOAuth2Sso
+@EnableOAuth2Client
 @RestController
 public class OauthClientApplication {
 
@@ -24,24 +22,4 @@ public class OauthClientApplication {
 		return principal;
 	}
 
-	@Configuration
-//	@Order
-	public static class SecurityConfig extends WebSecurityConfigurerAdapter {
-
-		@Override
-		protected void configure(HttpSecurity http) throws Exception {
-			System.out.println("CONFIGURING STUFF");
-
-			http
-				.antMatcher("/**")
-					.authorizeRequests()
-					.antMatchers("/", "/login**", "/webjars/**", "/error**")
-						.permitAll()
-					.anyRequest()
-						.authenticated();
-		}
-
-	}
-
 }
-
